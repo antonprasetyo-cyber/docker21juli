@@ -1,0 +1,33 @@
+#BUILD
+[root@192 twitter]# cat Dockerfile
+FROM centos:latest
+RUN yum install httpd -y
+COPY index.html /var/www/html/
+CMD httpd -DFOREGROUND
+
+docker build twitter .
+
+
+docker run -ti --name twitter -p 8000:80 twitter
+#PULL/PUSH REPO
+docker login
+docker tag twitter antonprasetyo/twitter
+docker push antonprasetyo/twitter
+
+#NETWORK
+docker network create --subnet 192.168.10.0/24 network-A
+docker run -itd --name httpd-custom -p8081:80 --network network-A --ip 192.168.10.20 antonprasetyo/twitter
+
+docker network --subnet 192.168.30.0/24 network-C
+docker run -itd --name httpd2-custom -p9090:80 --network network-C --ip 192.168.30.50 antonprasetyo/twitter
+
+[root@192 twitter]# iptables -t nat
+Chain DOCKER (2 references)
+target     prot opt source               destination
+RETURN     all  --  anywhere             anywhere
+RETURN     all  --  anywhere             anywhere
+RETURN     all  --  anywhere             anywhere
+DNAT       tcp  --  anywhere             anywhere             tcp dpt:cslistener to:172.17.0.4:80
+DNAT       tcp  --  anywhere             anywhere             tcp dpt:irdmi to:172.17.0.3:80
+DNAT       tcp  --  anywhere             anywhere             tcp dpt:tproxy to:192.168.10.20:80
+DNAT       tcp  --  anywhere             anywhere             tcp dpt:websm to:192.168.30.50:80
