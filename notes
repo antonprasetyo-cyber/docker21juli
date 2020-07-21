@@ -5,7 +5,7 @@ RUN yum install httpd -y
 COPY index.html /var/www/html/
 CMD httpd -DFOREGROUND
 
-docker build twitter .
+docker build -t twitter .
 
 
 docker run -ti --name twitter -p 8000:80 twitter
@@ -31,3 +31,11 @@ DNAT       tcp  --  anywhere             anywhere             tcp dpt:cslistener
 DNAT       tcp  --  anywhere             anywhere             tcp dpt:irdmi to:172.17.0.3:80
 DNAT       tcp  --  anywhere             anywhere             tcp dpt:tproxy to:192.168.10.20:80
 DNAT       tcp  --  anywhere             anywhere             tcp dpt:websm to:192.168.30.50:80
+
+~DATA VOL
+mkdir /data
+cp /root/twitter/index.html /data
+[root@192 data]# docker run -itd -p 90:80 --name vol-share -v /data:/var/www/html apache-custom
+
+#share data
+docker run -itd -p 91:80 --volumes-from vol-share --name vol-share2 antonprasetyo/twitter
