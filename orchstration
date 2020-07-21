@@ -1,0 +1,28 @@
+firewall-cmd --add-port 2376/tcp --permanent
+firewall-cmd --add-port 2377/tcp --permanent
+firewall-cmd --reload
+  792  iptables -nL
+
+
+hostnamectl set-hostname lama
+hostnamectl set-hostname baru
+
+
+#LAMA
+docker swarm init --advertise-addr 192.168.100.52
+
+
+hasilnya:
+root@lama ~]# docker swarm init --advertise-addr 192.168.100.52
+Swarm initialized: current node (p9nqkr7suhtcyh8ww1kzem1em) is now a manager.
+
+To add a worker to this swarm, run the following command:
+
+    docker swarm join --token SWMTKN-1-58tctoaad1haqn74bj5w4t7975afuec7n2jjv9keovhy7zfvf5-1vbzmdwu5o1z3i1wkbsaict39 192.168.100.52:2377
+
+#BARU
+docker swarm join --token SWMTKN-1-58tctoaad1haqn74bj5w4t7975afuec7n2jjv9keovhy7zfvf5-1vbzmdwu5o1z3i1wkbsaict39 192.168.100.52:2377
+hasilnya
+
+untuk melepaskan menggunakan perintah
+docker swarm leave
