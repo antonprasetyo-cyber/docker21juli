@@ -26,3 +26,16 @@ hasilnya
 
 untuk melepaskan menggunakan perintah
 docker swarm leave
+
+list docker node
+docker node list
+
+#LAMA
+docker service create --replicas 10 -p 8085:80 --name webservices antonprasetyo/twitter
+
+~#REVISI/UPDATE IMAGE
+docker service list
+docker service update webservice --image nginx 
+
+
+#akan menghapus container semua dan mengganti dengan image BARU
