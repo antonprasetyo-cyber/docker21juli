@@ -1,4 +1,49 @@
 otomasi mesin
-mesin1 centos  mesin2 ubuntu
+mesinlama centos 100.52   [ansible]
+mesinbaru centos 100.63
+mesin1 ubuntu  100.76
+
+
 ubuntu ip 192.168.100.76
 centos ip 192.168.100.77
+
+syarat ..kita harus
+1 user otentikasi
+2 priveleges sudo
+3 ecdsa key check pass (dengan cara ssh ke serveryg dituju akan adapesn :
+ssh root@192.168.100.63
+The authenticity of host '192.168.100.63 (192.168.100.63)' can't be established.
+ECDSA key fingerprint is SHA256:OjY1EdQ31kKH1lMxLq9furG3XslZj4h4lu8YWmDI4LM.
+Are you sure you want to continue connecting (yes/no)?
+)
+
+
+1. otentikasi
+edit file sshd_config di ubuntu dan "Permitlogin yes"
+
+2. priveleges
+sudo systemctl restart ssh
+coba remote ke server 100.76 dari server lama 100.52
+
+google search jika kita punya banyak container untuk cek ecdsa "ansible host keycheck"
+
+3. ECDSA
+
+
+#SERVER lamacentos
+# yum install epel-release
+# yum install python-pip -y
+# yum install sshpass -y
+# pip install ansible
+[root@lama ~]# mkdir /etc/ansible
+[root@lama ~]# vi /etc/ansible/hosts
+[server]
+192.168.100.76
+192.168.100.63
+
+
+[ubuntu]
+192.168.100.76
+
+[centos]
+192.168.100.63
