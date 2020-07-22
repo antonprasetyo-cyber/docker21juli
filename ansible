@@ -106,12 +106,12 @@ ssh 192.168.100.63
   tasks:
     - name: install httpd
       yum:
-     	name: httpd
-	state: present
+       name: httpd
+     	 state: present
     - name: copy file index.html
       copy:
-        src: index.html
-        dest: /var/www/html
+       src: index.html
+       dest: /var/www/html
     - name: start service httpd
       service:
 	name: httpd
@@ -125,3 +125,22 @@ ssh 192.168.100.63
 #buat file index.html
   876  echo "<h1> test httpd ansible </h1>" > index.html
   877  cat index.html
+##jalankan playbook.yml
+  [root@lama ansible]# ansible-playbook playbook_ubuntu.yml
+
+#install apache di ubutn
+  [root@lama ansible]# cat playbook_ubuntu.yml
+- hosts: ubuntu
+  tasks:
+    - name: install apache2
+      apt:
+        name: apache2
+        state: present
+    - name: copy file index.html
+      copy:
+        src: index.html
+        dest: /var/www/html
+    - name: start service apache2
+      service:
+        name: apache2
+        state: started
