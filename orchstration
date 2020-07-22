@@ -1,3 +1,8 @@
+#GOAL
+SERVERLAMA 192.168.100.52   akan berisikan 5 container nginx berisikan sama
+SERVERBARU 192.168.100.63   akan berisikan 5 container nginx berisikan SERVERLAMA
+
+
 firewall-cmd --add-port 2376/tcp --permanent
 firewall-cmd --add-port 2377/tcp --permanent
 firewall-cmd --reload
@@ -9,7 +14,7 @@ hostnamectl set-hostname baru
 
 
 #LAMA
-docker swarm init --advertise-addr 192.168.100.52
+docker swarm init --advertise-addr 192.168.100.52 [ip current server]
 
 
 hasilnya:
@@ -35,7 +40,7 @@ docker service create --replicas 10 -p 8085:80 --name webservices antonprasetyo/
 
 ~#REVISI/UPDATE IMAGE
 docker service list
-docker service update webservice --image nginx 
+docker service update webservice --image nginx
 
 
 #akan menghapus container semua dan mengganti dengan image BARU
