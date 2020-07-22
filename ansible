@@ -70,3 +70,12 @@ testyum di server lamacentos
 /usr/lib64/python2.7/site-packages/cryptography/__init__.py:39: CryptographyDeprecationWarning: Python 2 is no longer supported by the Python core team. Support for it is now deprecated in cryptography, and will be removed in a future release.
   CryptographyDeprecationWarning,
 SSH password:
+
+
+#ssh keygen dari server lamacentos
+ssh_keygen
+ssh-copy-id root@192.168.100.63
+ssh-copy-id root@192.168.100.76
+#test ssh
+ssh 192.168.100.76
+ssh 192.168.100.63
