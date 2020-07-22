@@ -1,0 +1,25 @@
+#
+- hosts: centos
+  vars:
+    - webserver: nginx
+  tasks:
+    - name: remove httpd
+        name: httpd
+        state: absent
+    - name: install epel-release
+      yum:
+        name: epel-release
+        state: present
+    - name: install nginx
+      yum:
+        name: "{{ webserver }}"
+        state: present
+      notify:
+      - start_nginx
+  handlers
+    - name: start_nginx
+      service:
+        name: "{{ webserver }}"
+        state: started
+
+        
