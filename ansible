@@ -47,3 +47,26 @@ google search jika kita punya banyak container untuk cek ecdsa "ansible host key
 
 [centos]
 192.168.100.63
+
+[root@lama ~]# ansible server -m ping -u root -k
+penjelasan :
+"server" = define yg ada di /etc/ansible/hosts
+-m ping = modul ping
+-u root -k = login
+
+
+test copy
+#mkdir /root/ansible
+#cd /root/ansible/
+#echo -p "test copy modul" > test.txt
+#cat test.txt
+#echo "test copy modul" > test.txt
+#ansible server -m copy -a "src=test.txt dest=/tmp" -u root -k
+cek di kedua server 100.76 dan 100.63 otomatis file akan tercopy
+
+
+testyum di server lamacentos
+[root@lama ansible]# ansible centos -m yum -a "name=samba state=present" -u root -k
+/usr/lib64/python2.7/site-packages/cryptography/__init__.py:39: CryptographyDeprecationWarning: Python 2 is no longer supported by the Python core team. Support for it is now deprecated in cryptography, and will be removed in a future release.
+  CryptographyDeprecationWarning,
+SSH password:
