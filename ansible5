@@ -1,0 +1,20 @@
+kasus
+install httpd === tasks
+service di task === handlers
+
+[root@lama ansible]# cat playbook5.yml
+- hosts: centos
+  tasks:
+    - name: install httpd
+      yum:
+        name: httpd
+        state: present
+      notify:
+      - service_start
+  handlers:
+    - name: service_start
+      service:
+        name: httpd
+        state: started
+
+    

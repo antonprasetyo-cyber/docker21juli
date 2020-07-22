@@ -1,0 +1,14 @@
+- hosts: ubuntu
+  tasks:
+    - name: install apache2
+      apt:
+        name: apache2
+        state: present
+    - name: copy file index.html
+      copy:
+        src: index.html
+        dest: /var/www/html
+    - name: start service apache2
+      service:
+        name: apache2
+        state: started

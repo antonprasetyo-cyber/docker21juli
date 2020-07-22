@@ -1,0 +1,15 @@
+#handlers
+[root@lama ansible]# cat playbook4.yml
+- hosts: ubuntu
+  tasks:
+    - name: tasks copy file
+      copy:
+        src: test.txt
+        dest: /home/user
+      notify:
+      - change_permission
+  handlers:
+    - name: change_permission
+      file:
+        name: /home/user/test.txt
+        mode: 0700
