@@ -79,3 +79,49 @@ ssh-copy-id root@192.168.100.76
 #test ssh
 ssh 192.168.100.76
 ssh 192.168.100.63
+
+
+#test ping dari ansible
+[root@lama ansible]# ansible server -m ping -u root
+/usr/lib64/python2.7/site-packages/cryptography/__init__.py:39: CryptographyDeprecationWarning: Python 2 is no longer supported by the Python core team. Support for it is now deprecated in cryptography, and will be removed in a future release.
+  CryptographyDeprecationWarning,
+192.168.100.63 | SUCCESS => {
+    "ansible_facts": {
+        "discovered_interpreter_python": "/usr/bin/python"
+    },
+    "changed": false,
+    "ping": "pong"
+}
+192.168.100.76 | SUCCESS => {
+    "ansible_facts": {
+        "discovered_interpreter_python": "/usr/bin/python3"
+    },
+    "changed": false,
+    "ping": "pong"
+}
+
+##buat file yml
+[root@lama ansible]# cat playbook.yml
+- hosts: centos
+  tasks:
+    - name: install httpd
+      yum:
+     	name: httpd
+	state: present
+    - name: copy file index.html
+      copy:
+        src: index.html
+        dest: /var/www/html
+    - name: start service httpd
+      service:
+	name: httpd
+	state: started
+    - name: allow firewall port 80/tcp
+      firewalld:
+	port: 80/tcp
+	state: enabled
+	permanent: yes
+	immediate: yes
+#buat file index.html
+  876  echo "<h1> test httpd ansible </h1>" > index.html
+  877  cat index.html
