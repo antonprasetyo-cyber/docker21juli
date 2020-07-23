@@ -1,0 +1,80 @@
+install plugin docker-build-step
+Manage Jenkins - Manage Plugin - available - docker-build-step
+
+
+#open api docker
+
+ExecStart=/usr/bin/dockerd -H fd:// --containerd=/run/containerd/containerd.sock -H tcp://127.0.0.1:2375
+
+[root@lama ~]# vi /usr/lib/systemd/system/docker.service
+[root@lama ~]# systemctl reload docker
+[root@lama ~]# systemctl daemon-reload
+[root@lama ~]# systemctl restart docker
+[root@lama ~]# ss -tulpn |grep 2375
+tcp    LISTEN     0      128    127.0.0.1:2375                  *:*                   users:(("dockerd",pid=16684,fd=3))
+
+cek app
+[root@lama ~]# curl -X GET http://127.0.0.1:2375/v1.24/containers/json
+
+
+[root@lama ~]# usermod -aG docker jenkins
+[root@lama ~]# systemctl restart docker
+[root@lama ~]# systemctl restart jenkins
+
+
+masuk ke Jenkin
+manage jenkins - configuration system
+docker builder - docker url tcp://127.0.0.1:2375
+
+klik test connection - save
+
+[root@lama ~]# su - jenkins -s /bin/bash
+ssh ipcentos klik ys
+ssh ip Ubuntu klik yes
+
+=====
+buat DockerFile di github...file
+
+FROM ubuntu:16:04
+RUN apt update && apt install apache2 -y
+COPY index.html /var/www/html
+CMD apachectl -DFOREGROUND
+
+lalu commit
+============
+Buat file playbook di github
+playbook.yml
+
+- hosts: server
+  vars:
+  - image: antonprasetyo/cicd-jenkins:beta
+  - python: python-docker
+  tasks:
+  - name: install python docker centos
+    yum:
+      name: "{{ python }}"
+      state: present
+    when:
+    - ansible_distribution == "CentOS"
+  - name: install python docker Ubuntu
+    apt:
+      name: "{{ python }}"
+      state: present
+    when:
+    - ansible_distribution == "Ubuntu"
+  - name: pull images dari docker hub
+    docker_image:
+      name: "{{ image }}"
+      state: present
+      force: yes
+  - name: create container
+    docker_container:
+      name: container_docker_jenkins
+      image: "{{ image }}"
+      state: present
+      published_ports:
+      - 8090:80
+      recreate: yes
+
+      ====di GIT akan ada 3 file bash.sh, Dockerfile, playbook.yml
+urutan :      
