@@ -1,0 +1,37 @@
+#jenkins
+#yum install -y java-1.8.0-openjdk-devel
+#curl -X GET https://prodjenkinsreleases.blob.core.windows.net/redhat-stable/jenkins-2.235.2-1.1.noarch.rpm -o jenkins.rpm
+#rpm -i jenkins.rpm
+ceh port 8080 yg kosong
+#ss -tulpn|grep 8080
+
+[root@lama ~]# systemctl start jenkins
+[root@lama ~]# systemctl enable jenkins
+jenkins.service is not a native service, redirecting to /sbin/chkconfig.
+Executing /sbin/chkconfig jenkins on
+
+
+[root@lama ~]# firewall-cmd --add-port 8080/tcp --permanent
+success
+[root@lama ~]# firewall-cmd --reload
+success
+
+open browser http://ip:8080
+
+Project
+1.Prebuiid
+- SCM
+- Build Env= java
+2. Buid
+- Build
+- Testing
+3. Post Build
+
+setelah ci/cd selesai jalankan httpd di server jenkins
+systemctl start httpd
+
+[root@lama ~]# firewall-cmd --add-port 80/tcp --permanent
+success
+[root@lama ~]# firewall-cmd --reload
+success
+[root@lama ~]# chown jenkins:jenkins /var/www/html/
