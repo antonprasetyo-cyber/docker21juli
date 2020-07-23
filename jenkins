@@ -27,6 +27,36 @@ Project
 - Testing
 3. Post Build
 
+
+1. buat project bash
+
+
+di jenkins
+Build-Execute shell
+echo "test jenkins build" > index.html
+
+2. buat project bash2
+Source Code Management - Git
+Repo : https://github.com/antonprasetyo-cyber/jenkins.git
+
+Build - Execute Shell
+chmod +x bash.sh
+./bash.sh
+
+3. buat project bash3
+
+Build - Execute Shell
+cp ../bash-2/index.html /var/www/html/index.html
+
+balik ke bash2 dan isikan di Post build action
+Project to build bash-3
+
+
+lalu jalankan build di bash2 maka bash 3 akan jalan dan
+tampilan web langsung berubah
+=====================================
+
+
 setelah ci/cd selesai jalankan httpd di server jenkins
 systemctl start httpd
 
