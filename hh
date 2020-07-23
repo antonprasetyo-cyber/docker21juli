@@ -1,4 +1,0 @@
-wdviuwqd
-fspojqjf[wq
-#dvads
-]
