@@ -32,7 +32,7 @@ To add a worker to this swarm, run the following command:
 docker swarm join --token SWMTKN-1-58tctoaad1haqn74bj5w4t7975afuec7n2jjv9keovhy7zfvf5-1vbzmdwu5o1z3i1wkbsaict39 192.168.100.52:2377
 hasilnya
 
-pastikan kita ssh dari server client ke server leader
+pastikan kita aktifkan ECDSA ssh dari "server client" ke "server leader"
 
 [root@centos2 ~]# ssh 192.168.56.3
 The authenticity of host '192.168.56.3 (192.168.56.3)' can't be established.
