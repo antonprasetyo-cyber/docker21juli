@@ -7,7 +7,8 @@ SERVERBARU 192.168.100.63   akan berisikan 5 container nginx berisikan SERVERLAM
 firewall-cmd --add-port 2376/tcp --permanent
 firewall-cmd --add-port 2377/tcp --permanent
 firewall-cmd --reload
-  792  iptables -nL
+setenforce 0
+
 
 2. set hostnanme untuk membedakan server
 hostnamectl set-hostname lama
