@@ -3,16 +3,17 @@ SERVERLAMA 192.168.100.52   akan berisikan 5 container nginx berisikan sama
 SERVERBARU 192.168.100.63   akan berisikan 5 container nginx berisikan SERVERLAMA
 
 
+1. Open firewalk di centos
 firewall-cmd --add-port 2376/tcp --permanent
 firewall-cmd --add-port 2377/tcp --permanent
 firewall-cmd --reload
   792  iptables -nL
 
-
+2. set hostnanme untuk membedakan server
 hostnamectl set-hostname lama
 hostnamectl set-hostname baru
 
-
+3. Set docker swarm
 #LAMA
 docker swarm init --advertise-addr 192.168.100.52 [ip current server]
 
@@ -25,19 +26,24 @@ To add a worker to this swarm, run the following command:
 
     docker swarm join --token SWMTKN-1-58tctoaad1haqn74bj5w4t7975afuec7n2jjv9keovhy7zfvf5-1vbzmdwu5o1z3i1wkbsaict39 192.168.100.52:2377
 
+4. Join di server lain. docker swarm
 #BARU
 docker swarm join --token SWMTKN-1-58tctoaad1haqn74bj5w4t7975afuec7n2jjv9keovhy7zfvf5-1vbzmdwu5o1z3i1wkbsaict39 192.168.100.52:2377
 hasilnya
 
+5. Untuk menghapus node
 untuk melepaskan menggunakan perintah
 docker swarm leave
 
-list docker node
-docker node list
+6. untuk mengecek service node
+#list docker node
+docker node ls   #jalankan di SERVER LAMA
 
+7.Jalankan pembuatan cluster di server manager
 #LAMA
 docker service create --replicas 10 -p 8085:80 --name webservices antonprasetyo/twitter
 
+8. Revisi container
 ~#REVISI/UPDATE IMAGE
 docker service list
 docker service update webservice --image nginx
