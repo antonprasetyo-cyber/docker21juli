@@ -32,6 +32,16 @@ To add a worker to this swarm, run the following command:
 docker swarm join --token SWMTKN-1-58tctoaad1haqn74bj5w4t7975afuec7n2jjv9keovhy7zfvf5-1vbzmdwu5o1z3i1wkbsaict39 192.168.100.52:2377
 hasilnya
 
+pastikan kita ssh dari server client ke server leader
+
+[root@centos2 ~]# ssh 192.168.56.3
+The authenticity of host '192.168.56.3 (192.168.56.3)' can't be established.
+ECDSA key fingerprint is SHA256:CrZRpUHlYbWnoR984azeQnmNrUk5WcN1HJS3QS/jAqU.
+ECDSA key fingerprint is MD5:94:d6:58:3e:e6:03:1e:30:4a:41:fd:cb:88:b4:04:6f.
+Are you sure you want to continue connecting (yes/no)? yes
+
+
+
 5. Untuk menghapus node
 untuk melepaskan menggunakan perintah
 docker swarm leave
