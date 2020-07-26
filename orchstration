@@ -6,6 +6,7 @@ SERVERBARU 192.168.100.63   akan berisikan 5 container nginx berisikan SERVERLAM
 1. Open firewalk di centos
 firewall-cmd --add-port 2376/tcp --permanent
 firewall-cmd --add-port 2377/tcp --permanent
+firewall-cmd --add-port 7946 --permanent
 firewall-cmd --reload
 setenforce 0
 

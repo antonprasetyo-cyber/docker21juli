@@ -77,4 +77,4 @@ playbook.yml
       recreate: yes
 
       ====di GIT akan ada 3 file bash.sh, Dockerfile, playbook.yml
-urutan :      
+urutan :
